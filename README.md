@@ -12,11 +12,9 @@ LabelTool
 |  
 |--main.py   *# source code for the tool*  
 |  
-|--Images/   *# direcotry containing the images to be labeled*  
+|--Images/   *# directory containing the images to be labeled*  
 |  
-|--Labels/   *# direcotry for the labeling results*  
-|  
-|--Examples/  *# direcotry for the example bboxes*  
+|--Labels/   *# directory for the labeling results*   
 
 Environment
 ----------
