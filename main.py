@@ -67,13 +67,13 @@ class LabelTool():
         self.groupList = []
 
         # ----------------- GUI stuff ---------------------
-        # dir entry & load
-        self.dirLabel = Label(self.frame, text = "Image Dir:")
-        self.dirLabel.grid(row = 0, column = 0, sticky = E)
-        self.entry = Entry(self.frame)
-        self.entry.grid(row = 0, column = 1, sticky = W+E)
-        self.ldBtn = Button(self.frame, text = "Load", command = self.loadDir)
-        self.ldBtn.grid(row = 0, column = 2, sticky = W+E)
+        """# dir entry & load
+                                self.dirLabel = Label(self.frame, text = "Image Dir:")
+                                self.dirLabel.grid(row = 0, column = 0, sticky = E)
+                                self.entry = Entry(self.frame)
+                                self.entry.grid(row = 0, column = 1, sticky = W+E)
+                                self.ldBtn = Button(self.frame, text = "Load", command = self.loadDir)
+                                self.ldBtn.grid(row = 0, column = 2, sticky = W+E)"""
 
         # main panel for labeling
         self.mainPanel = Canvas(self.frame, cursor='tcross')
@@ -82,14 +82,14 @@ class LabelTool():
         self.parent.bind("<Escape>", self.cancelBBox)  # press <Espace> to cancel current bbox
         self.parent.bind("a", self.prevImage) # press 'a' to go backforward
         self.parent.bind("d", self.nextImage) # press 'd' to go forward
-        self.mainPanel.grid(row = 1, column = 1, rowspan = 4, sticky = W+N)
+        self.mainPanel.grid(row = 0, column = 1, rowspan = 4, sticky = W+N, pady=25, padx=10)
 
         # showing bbox info & delete bbox
         self.boxPanel = Frame(self.frame)
-        self.boxPanel.grid(row = 1, column = 2, sticky = W+E, pady=20)
+        self.boxPanel.grid(row = 0, column = 2, sticky = W+E, pady=20)
         self.lb1 = Label(self.boxPanel, text = 'Bounding boxes:')
         self.lb1.pack()
-        self.listbox = Listbox(self.boxPanel, width = 22, height = 12, selectmode=EXTENDED)
+        self.listbox = Listbox(self.boxPanel, width = 30, height = 12, selectmode=EXTENDED)
         self.listbox.pack(fill=X)
         self.listbox.bind("<ButtonRelease-1>", self.highlightBox)
         self.listbox.bind("<KeyRelease-Up>", self.highlightBox)
@@ -101,12 +101,12 @@ class LabelTool():
 
         # grouping
         self.groupPanel = Frame(self.frame)
-        self.groupPanel.grid(row = 2, column = 2, sticky = W+E, pady=20)
+        self.groupPanel.grid(row = 1, column = 2, sticky = W+E, pady=20)
         self.lb2 = Label(self.groupPanel, text = 'Grouping:')
         self.lb2.pack()
         self.btnGroupSelection = Button(self.groupPanel, text = 'Group Selection', command = self.groupSelection)
         self.btnGroupSelection.pack(fill=X)
-        self.groupListbox = Listbox(self.groupPanel, width = 22, height = 5, selectmode=SINGLE)
+        self.groupListbox = Listbox(self.groupPanel, width = 30, height = 5, selectmode=SINGLE)
         self.groupListbox.pack(fill=X)
         self.groupListbox.bind("<ButtonRelease-1>", self.highlightGroup)
         self.groupListbox.bind("<KeyRelease-Up>", self.highlightGroup)
@@ -118,7 +118,7 @@ class LabelTool():
 
         # selecting the current labelling class
         self.classPanel = Frame(self.frame)
-        self.classPanel.grid(row = 3, column = 2, sticky = W+E, pady=20)
+        self.classPanel.grid(row = 2, column = 2, sticky = W+E, pady=20)
         self.lb3 = Label(self.classPanel, text = 'Classes:')
         self.lb3.pack()
         self.btnCar = Button(self.classPanel, text = 'Car', command = self.selectCar)
@@ -138,7 +138,7 @@ class LabelTool():
 
         # control panel for image navigation
         self.ctrPanel = Frame(self.frame)
-        self.ctrPanel.grid(row = 4, column = 1, columnspan = 2, sticky = W+E)
+        self.ctrPanel.grid(row = 3, column = 1, columnspan = 2, sticky = W+E)
         self.prevBtn = Button(self.ctrPanel, text='<< Prev', width = 10, command = self.prevImage)
         self.prevBtn.pack(side = LEFT, padx = 5, pady = 3)
         self.nextBtn = Button(self.ctrPanel, text='Next >>', width = 10, command = self.nextImage)
@@ -170,9 +170,9 @@ class LabelTool():
         self.disp.pack(side = RIGHT)
         
         self.frame.columnconfigure(1, weight = 1)
-        self.frame.rowconfigure(4, weight = 1)
+        self.frame.rowconfigure(3, weight = 1)
         
-
+        self.loadDir()
 
         # for debugging
 ##        self.setImage()
@@ -180,16 +180,12 @@ class LabelTool():
 
     def loadDir(self, dbg = False):
         if not dbg:
-            s = self.entry.get()
             self.parent.focus()
-            self.category = int(s)
         else:
-            s = r'D:\workspace\python\labelGUI'
-##        if not os.path.isdir(s):
-##            tkMessageBox.showerror("Error!", message = "The specified dir doesn't exist!")
-##            return
+            return
+        
         # get image list
-        self.imageDir = os.path.join(r'./Images', '%03d' %(self.category))
+        self.imageDir = os.path.join(r'./Images')
         self.imageList = glob.glob(os.path.join(self.imageDir, '*.jpg'))
         if len(self.imageList) == 0:
             print('No .JPG images found in the specified dir!')
@@ -200,7 +196,7 @@ class LabelTool():
         self.total = len(self.imageList)
 
          # set up output dir
-        self.outDir = os.path.join(r'./Labels', '%03d' %(self.category))
+        self.outDir = os.path.join(r'./Labels')
         if not os.path.exists(self.outDir):
             os.mkdir(self.outDir)
 
@@ -225,7 +221,7 @@ class LabelTool():
         """
 
         self.loadImage()
-        print('%d images loaded from %s' %(self.total, s))
+        print('%d images loaded' %(self.total))
 
     def loadImage(self):
         # load image
