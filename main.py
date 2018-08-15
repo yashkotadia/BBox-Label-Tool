@@ -138,7 +138,7 @@ class LabelTool():
 
         # control panel for image navigation
         self.ctrPanel = Frame(self.frame)
-        self.ctrPanel.grid(row = 3, column = 1, columnspan = 2, sticky = W+E)
+        self.ctrPanel.grid(row = 2, column = 1, columnspan = 1, sticky = W+E)
         self.prevBtn = Button(self.ctrPanel, text='<< Prev', width = 10, command = self.prevImage)
         self.prevBtn.pack(side = LEFT, padx = 5, pady = 3)
         self.nextBtn = Button(self.ctrPanel, text='Next >>', width = 10, command = self.nextImage)
