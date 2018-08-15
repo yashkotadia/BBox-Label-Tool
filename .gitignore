@@ -1,0 +1,4 @@
+build/
+_pycache_/
+main.spec
+main.exe
