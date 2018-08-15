@@ -1,4 +1,4 @@
-build/
-_pycache_/
+build
+_pycache_
 main.spec
 main.exe
