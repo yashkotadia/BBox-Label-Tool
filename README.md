@@ -35,7 +35,7 @@ Usage
  - To create a new bounding box, left-click to select the first vertex. Moving the mouse to draw a rectangle, and left-click again to select the second vertex.
  - To cancel the bounding box while drawing, just press `<Esc>`.
  - To delete a existing bounding box, select it from the listbox, and click `Delete`.
-   - Deleting a Bounding Box which is a part of an association shall result in deletion of that associations as well.
+   - Deleting a Bounding Box which is a part of an association shall result in deletion of that association as well.
  - To delete all existing bounding boxes in the image, simply click `ClearAll`.
 2. How to create associations between motorcycle and riders?
   - Once all the bounding boxes have been drawn, have a look at the image. You can find the Id of motorcycles and persons. 
