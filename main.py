@@ -445,8 +445,9 @@ class LabelTool():
             self.groupListbox.insert(END, group)
 
     def delGroup(self):
-        sel = self.groupListbox.curselection()
+        sel = self.groupListbox.curselection()[0]
         self.groupListbox.delete(sel)
+        self.groupList.pop(sel)
         self.mainPanel.delete('high')
 
     def prevImage(self, event = None):
