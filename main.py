@@ -13,6 +13,8 @@ from PIL import Image, ImageTk
 import os
 import glob
 import random
+import time
+import json
 
 LABEL = {
     'car': 0,
@@ -52,6 +54,8 @@ class LabelTool():
         self.tkimg = None
         self.label = None
         self.highlight = []
+        self.time = None
+        self.logFile = 'log.json'
 
         # initialize mouse state
         self.STATE = {}
@@ -276,10 +280,25 @@ class LabelTool():
                         group = [int(t.strip()) for t in line.split()]
                         self.groupList.append(group)
                         self.groupListbox.insert(END, group)
-
         self.writeText()
+        self.time = time.time()
 
     def saveImage(self):
+
+        try:
+            with open(self.logFile, 'r') as f:
+                log = json.load(f)
+        except FileNotFoundError:
+            log = {}
+        
+        try:
+            log[self.imagename] += time.time() - self.time
+        except:
+            log[self.imagename] = time.time() - self.time
+        
+        with open(self.logFile, 'w') as f:
+            json.dump(log, f)
+
         with open(self.labelfilename, 'w') as f:
             f.write('%d\n' %len(self.bboxList))
             for bbox in self.bboxList:
