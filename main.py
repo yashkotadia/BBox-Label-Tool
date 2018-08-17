@@ -104,36 +104,36 @@ class LabelTool():
         self.groupPanel.grid(row = 1, column = 2, sticky = W+E, pady=20)
         self.lb2 = Label(self.groupPanel, text = 'Grouping:')
         self.lb2.pack()
-        self.btnGroupSelection = Button(self.groupPanel, text = 'Group Selection', command = self.groupSelection)
+        self.btnGroupSelection = Button(self.groupPanel, text = 'Add Group', command = self.addGroup)
         self.btnGroupSelection.pack(fill=X)
         self.groupListbox = Listbox(self.groupPanel, width = 30, height = 5, selectmode=SINGLE)
         self.groupListbox.pack(fill=X)
         self.groupListbox.bind("<ButtonRelease-1>", self.highlightGroup)
         self.groupListbox.bind("<KeyRelease-Up>", self.highlightGroup)
         self.groupListbox.bind("<KeyRelease-Down>", self.highlightGroup)
-        self.btnDelGroup = Button(self.groupPanel, text = 'Delete', command = self.delBBox)
+        self.btnDelGroup = Button(self.groupPanel, text = 'Delete', command = self.delGroup)
         self.btnDelGroup.pack(fill=X)
-        self.btnClearGroup = Button(self.groupPanel, text = 'ClearAll', command = self.clearBBox)
-        self.btnClearGroup.pack(fill=X)
+        #self.btnClearGroup = Button(self.groupPanel, text = 'ClearAll', command = self.clearBBox)
+        #self.btnClearGroup.pack(fill=X)
 
         # selecting the current labelling class
         self.classPanel = Frame(self.frame)
         self.classPanel.grid(row = 2, column = 2, sticky = W+E, pady=20)
         self.lb3 = Label(self.classPanel, text = 'Classes:')
         self.lb3.pack()
-        self.btnCar = Button(self.classPanel, text = 'Car', command = self.selectCar)
+        self.btnCar = Button(self.classPanel, text = 'Car/गाडी', command = self.selectCar, bg=COLOR[LABEL['car']])
         self.btnCar.pack(fill=X)
-        self.btnTruck = Button(self.classPanel, text = 'Truck', command = self.selectTruck)
+        self.btnTruck = Button(self.classPanel, text = 'Truck/ट्रक', command = self.selectTruck, bg=COLOR[LABEL['truck']])
         self.btnTruck.pack(fill=X)
-        self.btnBus = Button(self.classPanel, text = 'Bus', command = self.selectBus)
+        self.btnBus = Button(self.classPanel, text = 'Bus/बस', command = self.selectBus, bg=COLOR[LABEL['bus']])
         self.btnBus.pack(fill=X)
-        self.btnRickshaw = Button(self.classPanel, text = 'Rickshaw', command = self.selectRickshaw)
+        self.btnRickshaw = Button(self.classPanel, text = 'Rickshaw/रिक्शा', command = self.selectRickshaw, bg=COLOR[LABEL['rickshaw']])
         self.btnRickshaw.pack(fill=X)
-        self.btnMotorcycle = Button(self.classPanel, text = 'Motorcycle', command = self.selectMotorcycle)
+        self.btnMotorcycle = Button(self.classPanel, text = 'Motorcycle/मोटरसाइकिल', command = self.selectMotorcycle, bg=COLOR[LABEL['motorcycle']])
         self.btnMotorcycle.pack(fill=X)
-        self.btnPerson = Button(self.classPanel, text = 'Person', command = self.selectPerson)
+        self.btnPerson = Button(self.classPanel, text = 'Person/आदमी', command = self.selectPerson, bg=COLOR[LABEL['person']])
         self.btnPerson.pack(fill=X)
-        self.btnHelmet = Button(self.classPanel, text = 'Helmet', command = self.selectHelmet)
+        self.btnHelmet = Button(self.classPanel, text = 'Helmet/हेलमेट', command = self.selectHelmet, bg=COLOR[LABEL['helmet']])
         self.btnHelmet.pack(fill=X,)
 
         # control panel for image navigation
@@ -364,7 +364,7 @@ class LabelTool():
         self.writeText()
         self.mainPanel.delete('high')
 
-    def groupSelection(self):
+    def addGroup(self):
         selList = list(self.listbox.curselection())
 
         selClasses = [self.bboxList[sel][0] for sel in selList]
@@ -374,6 +374,11 @@ class LabelTool():
             return
         if selClasses.count(LABEL['motorcycle'])!=1:
             messagebox.showwarning('','Select 1 and only 1 motorcycle')
+            return
+
+        groupMembers = sum(self.groupList, [])
+        if any(member in selList for member in groupMembers):
+            messagebox.showwarning('','The group members must be unique')
             return
 
         self.groupList.append(selList)
