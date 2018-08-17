@@ -26,7 +26,7 @@ LABEL = {
     'helmet': 6
 }
 
-COLOR = ['red', 'blue', 'yellow', 'pink', 'cyan', 'brown', 'green']
+COLOR = ['red', 'blue', 'yellow', 'hotpink', 'cyan', 'orange', 'green']
 
 # image sizes for the examples
 SIZE = 256, 256
@@ -131,9 +131,9 @@ class LabelTool():
         self.btnTruck.pack(fill=X)
         self.btnBus = Button(self.classPanel, text = 'Bus/बस', command = self.selectBus, bg=COLOR[LABEL['bus']])
         self.btnBus.pack(fill=X)
-        self.btnRickshaw = Button(self.classPanel, text = 'Rickshaw/रिक्शा', command = self.selectRickshaw, bg=COLOR[LABEL['rickshaw']])
+        self.btnRickshaw = Button(self.classPanel, text = 'Rickshaw/िरक्शा', command = self.selectRickshaw, bg=COLOR[LABEL['rickshaw']])
         self.btnRickshaw.pack(fill=X)
-        self.btnMotorcycle = Button(self.classPanel, text = 'Motorcycle/मोटरसाइकिल', command = self.selectMotorcycle, bg=COLOR[LABEL['motorcycle']])
+        self.btnMotorcycle = Button(self.classPanel, text = 'Motorcycle/मोटरसाइिकल', command = self.selectMotorcycle, bg=COLOR[LABEL['motorcycle']])
         self.btnMotorcycle.pack(fill=X)
         self.btnPerson = Button(self.classPanel, text = 'Person/आदमी', command = self.selectPerson, bg=COLOR[LABEL['person']])
         self.btnPerson.pack(fill=X)
@@ -426,8 +426,8 @@ class LabelTool():
         for idx in sel:
             tmp = self.bboxList[idx]
             self.highlight.append(self.mainPanel.create_rectangle(tmp[1], tmp[2], \
-                                                    tmp[3], tmp[4], \
-                                                    width = 4, tag = 'high', \
+                                                    tmp[3], tmp[4], dash=(10,10),\
+                                                    width = 3, tag = 'high', \
                                                     outline = 'white'))
 
     def highlightGroup(self, event):
@@ -445,8 +445,8 @@ class LabelTool():
         for idx in sel:
             tmp = self.bboxList[idx]
             self.highlight.append(self.mainPanel.create_rectangle(tmp[1], tmp[2], \
-                                                    tmp[3], tmp[4], \
-                                                    width = 4, tag = 'high',\
+                                                    tmp[3], tmp[4], dash=(10,10),\
+                                                    width = 3, tag = 'high',\
                                                     outline = 'white'))
 
     def updateGroupList(self, sel):
