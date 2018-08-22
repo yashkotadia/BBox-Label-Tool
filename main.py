@@ -388,6 +388,13 @@ class LabelTool():
 
         selClasses = [self.bboxList[sel][0] for sel in selList]
 
+        for lab in LABEL:
+            if lab=='person' or lab=='motorcycle': continue
+
+            if selClasses.count(LABEL[lab])>0:
+                messagebox.showwarning('', 'Only persons and motorcycles are to be grouped')
+                return
+
         if selClasses.count(LABEL['person']) > 5 or selClasses.count(LABEL['person']) < 1:
             messagebox.showwarning('', 'Select 1-5 persons only')
             return
