@@ -4,7 +4,7 @@ BBox-Label-Tool
 A simple tool for labeling object bounding boxes in images, implemented with Python Tkinter.
 
 **Screenshot:**
-![Label Tool](./Screenshot.jpg)
+![Label Tool](./Screenshot.png)
 
 Data Organization
 -----------------
